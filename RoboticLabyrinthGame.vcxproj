@@ -147,12 +147,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gnc\control\GNC_Control.cpp" />
+    <ClCompile Include="gnc\control\GNC_Guid.cpp" />
+    <ClCompile Include="gnc\control\GNC_Nav.cpp" />
+    <ClCompile Include="gnc\exec\GNC_Exec.cpp" />
     <ClCompile Include="model\environment\Board.cpp" />
     <ClCompile Include="model\environment\Wall.cpp" />
     <ClCompile Include="model\sim\Sim.cpp" />
     <ClCompile Include="model\sim\Sim_Episode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gnc\control\GNC_Control.h" />
+    <ClInclude Include="gnc\control\GNC_Guid.h" />
+    <ClInclude Include="gnc\control\GNC_Nav.h" />
+    <ClInclude Include="gnc\exec\GNC_Exec.h" />
+    <ClInclude Include="gnc\util\GNC_Inline.h" />
     <ClInclude Include="model\environment\Ball.h" />
     <ClInclude Include="model\environment\Board.h" />
     <ClInclude Include="model\environment\Hole.h" />

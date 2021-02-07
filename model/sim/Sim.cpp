@@ -8,6 +8,8 @@
 #include "../environment/Board.h"
 #include "../environment/Wall.h"
 
+#include "../../gnc/exec/GNC_Exec.h"
+
 //*********************************** OBJECT DEFINITIONS ******************************
 
 // Simulation
@@ -20,6 +22,10 @@ Board board;
 
 //Wall wall;
 
+//--------------- GNC ---------------
+
+extern Gnc_Exec exec;
+
 
 
 int main()
@@ -28,11 +34,16 @@ int main()
     // Initiailize objects
     
     // Set global sim parameters
-    int num_runs{ 3 };
+    int num_runs{ 1 };
     int run_type{ 1 };
     double timeout{ 30.0 };
-    double dt{ 0.01 };
+    double sim_f{ 100.0 };
+    double dt{ 1./sim_f };
     bool logging{ false };
+
+    board.Init();
+
+    exec.Init();
 
     for (int run_count = 1; run_count < num_runs + 1; ++run_count)
     {

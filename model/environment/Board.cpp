@@ -5,12 +5,25 @@
 
 extern Board board;
 
-void Board::Reset()
+void Board::Init()
 {
-	board.Reset(0.0, 0.0);
+	board.Init_Walls();
 }
 
-void Board::Reset(double xStart, double yStart)
+void Board::Init_Walls()
+{
+	walls.push_back(Wall(0.13, 0.13, 0.13, -0.13));
+	walls.push_back(Wall(0.13, -0.13, -0.13, -0.13));
+	walls.push_back(Wall(-0.13, -0.13, -0.13, 0.13));
+	walls.push_back(Wall(-0.13, 0.13, 0.13, 0.13));
+}
+
+void Board::Restart()
+{
+	board.Restart(0.0, 0.0);
+}
+
+void Board::Restart(double xStart, double yStart)
 {
 	board.ball.m_xp			= xStart;
 	board.ball.m_yp			= yStart;
