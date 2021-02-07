@@ -22,44 +22,29 @@ class Board
 {
 private:
 
-	double m_xLength{ 0.3 }; // >> [m]
-	double m_yLength{ 0.3 }; // >> [m]
+	double m_xLength{ 0.3 }; // [m]
+	double m_yLength{ 0.3 }; // [m]
 
-	double m_xStart{ -0.15 }; // starting position of the ball >> [m]
-	double m_yStart{ 0.15 }; // >> [m]
-	double m_xFinish{ 0.15 }; // "Goal" position for the ball >> [m]
-	double m_yFinish{ -0.15 }; // >> [m]
+	double m_xStart{ -0.15 }; // x starting position of the ball [m]
+	double m_yStart{ 0.15 }; // y starting position of the ball [m]
+	double m_xFinish{ 0.15 }; // "Goal" x-position for the ball  [m]
+	double m_yFinish{ -0.15 }; // "Goal" y-position for the ball [m]
 
-	double m_theta{ 0.0 }; // rotation about the y-axis in the  inertial frame >> [rad]
-	double m_phi{ 0.0 }; // rotation about intermediate x-axis >> [rad]
+	double m_theta{ 0.0 }; // rotation about the y-axis in the  inertial frame [rad]
+	double m_phi{ 0.0 }; // rotation about intermediate x-axis [rad]
 
 	Ball ball;
 	vector<Wall> walls; // vector of all the walls
 	vector<Hole> holes; // vector of all the holes
 
 public:
-	Board()
-		: ball{ 0.0, 0.0, 0.0, 0.0 }
-	{
-		// Create vector of walls
 
-		walls.push_back(Wall( 0.13, 0.13, 0.13,-0.13));
-		walls.push_back(Wall( 0.13,-0.13,-0.13,-0.13));
-		walls.push_back(Wall(-0.13,-0.13,-0.13, 0.13));
-		walls.push_back(Wall(-0.13, 0.13, 0.13, 0.13));
-	}
-
-	Board(double xStart, double yStart, double xFinish, double yFinish)
-		: m_xStart{ xStart }, m_yStart{ yStart }, m_xFinish{ xFinish }, m_yFinish{ yFinish },
-		ball{ m_xStart, m_yStart, 0.0, 0.0 }
-	{
-
-	}
-
-	void Reset();
-	void Reset(double xStart, double yStart);
-
+	void Init();
+	void Restart();
+	void Restart(double xStart, double yStart);
 	void Update(double theta_dot, double phi_dot);
+
+	void Init_Walls();
 
 	void Compute_Rates_Of_Change(double theta_dot, double phi_dot);
 

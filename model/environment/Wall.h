@@ -24,6 +24,7 @@ public:
 	}
 
 	double Get_Distance(double xBall, double yBall);
+	void Get_Closest_Point(double xBall, double yBall, double& dx_Out, double& dy_Out);
 	double Get_Width() { return m_width; }
 
 	vector<double> m_xCoords; // size 2 >> [m]

@@ -7,6 +7,16 @@
 
 double Wall::Get_Distance(double xBall, double yBall)
 {
+	double dx{ 0.0 };
+	double dy{ 0.0 };
+
+	Wall::Get_Closest_Point(xBall, yBall, dx, dy);
+
+	return sqrt(dx * dx + dy * dy);
+}
+
+void Wall::Get_Closest_Point(double xBall, double yBall, double& dx_Out, double& dy_Out)
+{
 	double x1 = Wall::m_xCoords[0];
 	double x2 = Wall::m_xCoords[1];
 	double y1 = Wall::m_yCoords[0];
@@ -18,11 +28,10 @@ double Wall::Get_Distance(double xBall, double yBall)
 	if ((dx == 0) && (dy == 0))
 	{
 		// It's a point, not a line
-		dx = xBall - x1;
-		dy = yBall - y1;
-		return sqrt(dx * dx + dy * dy);
+		dx_Out = xBall - x1;
+		dy_Out = yBall - y1;
 	}
-	
+
 	// Find the t that minimizes distance
 	double t = ((xBall - x1) * dx + (yBall - y1) * dy) /
 		(dx * dx + dy * dy);
@@ -30,21 +39,19 @@ double Wall::Get_Distance(double xBall, double yBall)
 	if (t < 0)
 	{
 		// Point 1 is closest
-		dx = xBall - x1;
-		dy = yBall - y1;
+		dx_Out = xBall - x1;
+		dy_Out = yBall - y1;
 	}
 	else if (t > 1)
 	{
 		// Point 2 is closest
-		dx = xBall - x2;
-		dy = yBall - y2;
+		dx_Out = xBall - x2;
+		dy_Out = yBall - y2;
 	}
 	else
 	{
 		// Closest is between the two
-		dx = xBall - (x1 + t * dx);
-		dy = yBall - (y1 + t * dy);
+		dx_Out = xBall - (x1 + t * dx);
+		dy_Out = xBall - (y1 + t * dy);
 	}
-
-	return sqrt(dx * dx + dy * dy);
 }

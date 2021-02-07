@@ -4,16 +4,27 @@
 #include "..\environment\Board.h"
 #include "Sim_Episode.h"
 
+#include "../../gnc/exec/GNC_Exec.h"
+#include "../../gnc/control/GNC_Control.h"
+
 extern Sim_Episode episode;
 
 extern Board board;
+
+extern Gnc_Exec exec;
+
+extern Gnc_Control control;
 
 void Sim_Episode::Setup_Episode(int type, double dt, double timeout, bool logging)
 {
 	switch (type)
 	{
 	case 1:
-		board.Reset(0.0, 0.0);
+		// Model Restart
+		board.Restart(0.0, 0.0);
+
+		// GNC Restart
+		exec.Restart();
 
 		episode.dt = dt;
 		episode.time = 0.0;
@@ -37,16 +48,19 @@ void Sim_Episode::Run_Episode()
 {
 	while (episode.status != Status::ended)
 	{
+		board.Print_Pos();
 		// Camera measurement
 		// State estimate
 		// Guidance
 		// Control
 		// Servo Output
 
+		exec.Update();
+
 		// Actuator update
 		// Environment update
-		board.Compute_Rates_Of_Change(3.14/20.0, 0.0);
-		board.Apply_Euler_Integration(episode.dt, 3.14 / 20.0, 0.0);
+		board.Compute_Rates_Of_Change(control.theta_dot_cmd, control.phi_dot_cmd);
+		board.Apply_Euler_Integration(episode.dt, control.theta_dot_cmd, control.phi_dot_cmd);
 
 		// Step episode timer
 		episode.time += episode.dt;
@@ -62,7 +76,7 @@ void Sim_Episode::Run_Episode()
 			episode.status = Status::ended;
 		}
 	}
-
+	
 	
 }
 
